@@ -727,6 +727,20 @@
         height: 100vh !important;
         overflow: hidden !important;
       }
+      @media (min-aspect-ratio: 16/9) {
+        .hero img.bg {
+          width: auto !important;
+          height: 100% !important;
+          object-fit: contain !important;
+        }
+      }
+      @media (max-aspect-ratio: 16/9) {
+        .hero img.bg {
+          width: 100% !important;
+          height: auto !important;
+          object-fit: contain !important;
+        }
+      }
     </style>
   </head>
 
