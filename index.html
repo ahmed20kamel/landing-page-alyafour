@@ -506,28 +506,52 @@
         }
       }
 
-      /* ===== Desktop/Laptop enforce row layout ===== */
-      @media (min-width: 993px) {
+      /* ============================= */
+      /*     MOBILE-OPTIMIZED STACK    */
+      /* ============================= */
+
+      .grid-quarters > .col,
+      .contact-content,
+      .stat-text {
+        min-width: 0;
+      }
+
+      @media (max-width: 1600px) {
         .grid-quarters {
-          flex-direction: row !important;
-          align-items: stretch !important;
-          gap: 12px !important;
+          flex-direction: column;
+          align-items: center;
+          padding: 26px 28px;
+          gap: 18px;
+        }
+        .col {
+          width: 100%;
+          grid-template-rows: auto;
+          row-gap: 14px;
         }
         .right-side {
-          margin-left: -60px !important;
+          margin-left: 0;
+          justify-items: center;
+          width: 100%;
+        }
+        .stats-holder {
+          justify-content: center;
         }
         .stats-box {
-          transform: translate(-70px, 3px) !important;
+          transform: none;
+          justify-content: center;
+          max-width: 96%;
         }
         .timeline {
-          margin-left: -120px !important;
-          margin-top: -90px !important;
+          max-width: 900px;
+          margin-left: 0;
+          margin-top: 0;
+          --lineY: 92px;
         }
       }
 
       /* ===== Mobile: كل شيء في النص ومرتب ===== */
       @media (max-width: 768px) {
-        /* Hero compact + disable word offsets */
+        /* الهيرو */
         .hero {
           height: 82vh;
         }
@@ -543,6 +567,7 @@
           transform: none !important;
         }
 
+        /* ترتيب وتوسيط البلوكات */
         .grid-quarters {
           display: flex;
           flex-direction: column;
@@ -552,17 +577,10 @@
           width: 100%;
           text-align: center;
         }
-        .grid-quarters > .col {
-          justify-items: center;
-          align-items: center;
-        }
 
-        /* Contact section centered */
         .content {
           order: 1;
-          place-self: center;
-          width: 100%;
-          max-width: 560px;
+          max-width: 90%;
           margin: 0 auto;
           text-align: center;
         }
@@ -570,19 +588,9 @@
           text-align: center;
         }
         .contact-box {
-          width: 92vw;
-          max-width: 560px;
           margin-inline: auto;
-          justify-content: center;
-          display: grid;
-          grid-template-columns: 52px auto;
-        }
-        .contact-rail,
-        .contact-content {
-          justify-self: center;
         }
 
-        /* 36 years section centered */
         .right-side {
           order: 2;
           width: 100%;
@@ -602,6 +610,35 @@
           margin: 0 auto;
           transform: none;
         }
+        .stat-text {
+          text-align: center;
+        }
+
+        .timeline {
+          order: 3;
+          max-width: 90%;
+          margin: 0 auto;
+          text-align: center;
+        }
+
+        .map-wrap {
+          order: 4;
+          max-width: 90%;
+          margin: 0 auto;
+          text-align: center;
+          align-items: center;
+        }
+        .map-img {
+          margin-inline: auto;
+        }
+        .social-icons {
+          justify-content: center;
+          transform: none;
+          margin-top: 14px;
+          flex-wrap: wrap;
+        }
+
+        /* أحجام آمنة */
         .stat-number {
           font-size: 130px;
         }
@@ -612,12 +649,7 @@
           height: 110px;
         }
 
-        /* Timeline centered */
         .timeline {
-          order: 3;
-          max-width: 90%;
-          margin: 0 auto;
-          text-align: center;
           --lineY: 100px;
         }
         .timeline-grid {
@@ -630,31 +662,6 @@
           width: 210px;
           font-size: 12.5px;
         }
-
-        /* Map + Social centered */
-        .map-wrap {
-          order: 4;
-          place-self: center;
-          align-items: center;
-          text-align: center;
-          width: 100%;
-          max-width: 560px;
-          margin: 0 auto;
-        }
-        .map-img {
-          display: block;
-          margin-inline: auto;
-          width: 92vw;
-          max-width: 560px;
-        }
-        .social-icons {
-          width: 100%;
-          justify-content: center;
-          transform: none;
-          margin-top: 14px;
-          gap: 14px;
-          flex-wrap: wrap;
-        }
         .social-icons svg {
           width: 46px;
           height: 46px;
@@ -662,7 +669,7 @@
         }
       }
 
-      /* Very small phones */
+      /* موبايل صغير جدًا */
       @media (max-width: 480px) {
         .title .line {
           font-size: clamp(22px, 8.5vw, 44px);
@@ -704,129 +711,260 @@
         }
       }
 
-      /* Reduce motion if user prefers */
       @media (prefers-reduced-motion: reduce) {
         .title .line {
           animation: none !important;
           opacity: 1 !important;
         }
       }
-      /* === FORCE HERO IMAGE TO SHOW FULL SIZE === */
-      .hero img.bg {
-        position: relative !important;
-        width: 100% !important;
-        height: auto !important;
-        object-fit: contain !important;
-        object-position: center center !important;
-        background-color: #000 !important; /* اختيارى - عشان لو في فراغات */
-      }
-      .hero {
-        display: flex !important;
-        justify-content: center !important;
-        align-items: center !important;
-        height: 100vh !important;
-        overflow: hidden !important;
-      }
-      @media (min-aspect-ratio: 16/9) {
-        .hero img.bg {
-          width: auto !important;
-          height: 100% !important;
-          object-fit: contain !important;
+      /* ----- Center EVERYTHING on mobile ----- */
+      @media (max-width: 768px) {
+        /* خلى عناصر الأعمدة الجريد تتمركز أفقياً */
+        .col {
+          justify-items: center; /* child of .col (زي .content و .map-wrap) */
+        }
+
+        /* اكسر القواعد القديمة اللي بتحطها شمال */
+        .content,
+        .map-wrap {
+          justify-self: center !important; /* كان start */
+        }
+
+        /* الماب + السوشيال يتمركزوا جوّا الكونتينر */
+        .map-wrap {
+          align-items: center !important; /* كان flex-start */
+          text-align: center;
+          width: 100%;
+          max-width: 90%;
+          margin: 0 auto;
+        }
+
+        /* صناديق المحتوى نفسها في المنتصف */
+        .contact-box,
+        .map-img {
+          margin-inline: auto; /* يضمن الصورة والصندوق في النص */
+        }
+
+        /* العناوين والمحتوى */
+        .contact-title {
+          text-align: center;
+        }
+        .contact-content {
+          text-align: left;
+        } /* تسيب النصوص بنفس محاذاة القراءة */
+
+        /* أيقونات السوشيال في النص */
+        .social-icons {
+          justify-content: center !important;
+          transform: none;
+          margin-top: 14px;
+          gap: 14px;
+          flex-wrap: wrap;
         }
       }
-      @media (max-aspect-ratio: 16/9) {
-        .hero img.bg {
+      /* ==== FINAL MOBILE CENTER FIX — put this at the very end ==== */
+      @media (max-width: 768px) {
+        /* خلى الأعمدة نفسها تـcenter العناصر */
+        .grid-quarters > .col {
+          justify-items: center !important;
+          align-items: center !important;
+        }
+
+        /* وسّط بلوك الاتصال + الماب كـعناصر Grid */
+        .grid-quarters > .col > .content,
+        .grid-quarters > .col > .map-wrap {
+          place-self: center !important; /* = justify-self + align-self */
+          justify-self: center !important;
+          align-self: center !important;
+          margin-left: auto !important;
+          margin-right: auto !important;
+          max-width: min(560px, 92vw) !important;
+          text-align: center !important;
+        }
+
+        /* تأكيد توسيط الصندوق والصورة نفسهم */
+        .contact-box,
+        .map-img {
+          display: block;
+          margin-left: auto !important;
+          margin-right: auto !important;
+        }
+
+        /* الماب + السوشيال جوّا الكونتينر */
+        .map-wrap {
+          align-items: center !important; /* كان flex-start */
+        }
+
+        /* أيقونات السوشيال في النص */
+        .social-icons {
+          justify-content: center !important;
+          transform: none !important;
+          margin-top: 14px !important;
+          gap: 14px !important;
+          flex-wrap: wrap;
+        }
+      }
+      /* ===== FINAL, PUT AT THE VERY END ===== */
+      @media (max-width: 768px) {
+        /* 1) خلي سكشن الكونتاكت يوسّط كل اللي جواه */
+        .content {
+          display: flex !important;
+          flex-direction: column !important;
+          align-items: center !important;
+          justify-content: center !important;
+          text-align: center !important;
+          width: 100%;
+        }
+
+        /* 2) الصندوق نفسه مايبقاش 100%؛ يبقى على قد المحتوى ويتوسّط */
+        .contact-box {
+          width: auto !important; /* كان 100% */
+          max-width: 560px !important;
+          display: inline-grid !important; /* يخلّيه يتوسّط كعنصر سطر-بلوك */
+          grid-template-columns: 52px auto !important;
+          margin-left: auto !important;
+          margin-right: auto !important;
+          justify-content: center !important;
+        }
+
+        /* تأكيد إن العمود الرمادي والمحتوى نفسهم في النص داخل الصندوق */
+        .contact-rail,
+        .contact-content {
+          justify-self: center !important;
+        }
+
+        .contact-title {
+          text-align: center !important;
+        }
+
+        /* 3) الماب في النص فعليًا */
+        .map-wrap {
+          align-items: center !important; /* كان flex-start */
+          text-align: center !important;
+          width: 100%;
+        }
+        .map-img {
+          display: block !important;
+          margin-left: auto !important;
+          margin-right: auto !important;
+        }
+
+        /* 4) أيقونات السوشيال في النص */
+        .social-icons {
           width: 100% !important;
-          height: auto !important;
-          object-fit: contain !important;
+          justify-content: center !important;
+          transform: none !important;
+          gap: 14px !important;
+          margin-top: 14px !important;
+          flex-wrap: wrap !important;
+        }
+
+        /* 5) الأعمدة نفسها تْسنتر أي طفل جواها لو لسه حاجة متمردة */
+        .grid-quarters > .col {
+          justify-items: center !important;
+          align-items: center !important;
         }
       }
-      /* === ONE IMAGE, NO ZOOM, FIT ANY SCREEN === */
-      .hero {
-        position: relative !important;
-        /* خلي الهيرو بارتفاع شاشة الجهاز الحقيقي (أدق من vh على الموبايل) */
-        min-height: 100svh !important;
-        height: auto !important;
-
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-
-        background: #000 !important; /* خلفية لخطابات الـ letterbox لو ظهرت */
-        overflow: hidden !important;
-      }
-
-      .hero img.bg {
-        /* الصورة تدخل في الفلو الطبيعي عشان تاخد مقاسها الحقيقي */
-        position: static !important;
-        display: block !important;
-
-        /* مفيش تمديد بالقوة؛ خليه يحافظ على نسبته */
-        width: auto !important;
-        height: auto !important;
-
-        /* قيود قصوى: ما تتعدّاش إطار الجهاز */
-        max-width: 100vw !important;
-        max-height: 100svh !important;
-
-        object-fit: contain !important; /* تظهر كاملة بدون قص */
-        object-position: center center !important;
-        z-index: 1 !important; /* العناصر المطلقة فوقها (التيتل/اللوگو) */
-      }
-
-      /* استخدم dvh لو المتصفح بيدعمه (أدق من svh) */
-      @supports (height: 100dvh) {
-        .hero {
-          min-height: 100dvh !important;
+      /* =========================
+   1) DESKTOP/LAPTOP FIX
+   خلى الصفحة تفضل صفّين لحد ~1280px بدل 1600px
+   ========================= */
+      @media (min-width: 993px) {
+        /* لو في أي كود قبل كده قلب الاتجاه عند 1600px، رجّعه صفّين هنا */
+        .grid-quarters {
+          flex-direction: row !important;
+          align-items: stretch !important;
+          gap: 12px !important;
         }
-        .hero img.bg {
-          max-height: 100dvh !important;
+        /* رجّع تعويضات الديزاين على الديسكتوب فقط */
+        .right-side {
+          margin-left: -60px !important;
+        }
+        .stats-box {
+          transform: translate(-70px, 3px) !important;
+        }
+        .timeline {
+          margin-left: -120px !important;
+          margin-top: -90px !important;
         }
       }
 
-      /* موبايل: امنع أي قواعد قديمة كانت بتفرض 82vh إلخ */
+      /* =========================
+   2) MOBILE TRUE CENTER FIX
+   يوسّط بلوك الاتصال بالكامل + الماب + السوشيال
+   ========================= */
       @media (max-width: 768px) {
-        .hero {
-          height: auto !important;
-          min-height: 100svh !important;
+        /* خلى عمود الجريد يوسّط كل الأولاد */
+        .grid-quarters > .col {
+          justify-items: center !important;
+          align-items: center !important;
         }
-      }
-      /* === FORCE HERO IMAGE TO ALWAYS FILL SCREEN === */
-      .hero {
-        position: relative !important;
-        width: 100% !important;
-        height: 100svh !important; /* يغطي ارتفاع الشاشة بالكامل */
-        overflow: hidden !important;
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-        background: #000 !important;
-      }
 
-      .hero img.bg {
-        position: absolute !important;
-        inset: 0 !important; /* من الحواف كلها */
-        width: 100% !important;
-        height: 100% !important;
-        object-fit: cover !important; /* ← يملى الشاشة بالكامل بدون أي فراغ */
-        object-position: center 30% !important; /* عدلها حسب الكادر */
-        z-index: 1 !important;
-      }
-
-      /* على الموبايل نفس المبدأ */
-      @media (max-width: 768px) {
-        .hero {
-          height: 100svh !important;
+        /* بلوك الاتصال ككتلة في النص بعرض مناسب */
+        .content {
+          place-self: center !important;
+          justify-self: center !important;
+          align-self: center !important;
+          width: 100% !important;
+          max-width: 560px !important;
+          text-align: center !important;
+          margin-left: auto !important;
+          margin-right: auto !important;
         }
-        .hero img.bg {
-          object-position: center 25% !important; /* ارفع الكادر شوية للموبايل */
-        }
-      }
 
-      /* دعم أفضل للشاشات الحديثة */
-      @supports (height: 100dvh) {
-        .hero {
-          height: 100dvh !important;
+        /* الصندوق نفسه يبقى في النص وبعرض ثابت/مرن */
+        .contact-box {
+          width: 92vw !important; /* مرن للموبايل */
+          max-width: 560px !important; /* مايزيدش عن الديزاين */
+          margin-left: auto !important;
+          margin-right: auto !important;
+          justify-content: center !important;
+        }
+
+        /* العمود الرمادي + محتوى الأرقام ييجوا متوازنين جوه الصندوق */
+        .contact-rail,
+        .contact-content {
+          justify-self: center !important;
+        }
+
+        .contact-title {
+          text-align: center !important;
+        }
+
+        /* الماب في النص فعليًا */
+        .map-wrap {
+          place-self: center !important;
+          justify-self: center !important;
+          align-self: center !important;
+          align-items: center !important;
+          text-align: center !important;
+          width: 100% !important;
+          max-width: 560px !important;
+          margin-left: auto !important;
+          margin-right: auto !important;
+        }
+        .map-img {
+          display: block !important;
+          margin-left: auto !important;
+          margin-right: auto !important;
+          max-width: 560px !important;
+          width: 92vw !important;
+        }
+
+        /* أيقونات السوشيال في النص */
+        .social-icons {
+          width: 100% !important;
+          justify-content: center !important;
+          transform: none !important;
+          gap: 14px !important;
+          margin-top: 14px !important;
+          flex-wrap: wrap !important;
+        }
+
+        /* أمان إضافي: النصوص الكبيرة ما تكسرش السطر غصب */
+        .contact-content,
+        .stat-text {
+          min-width: 0 !important;
         }
       }
     </style>
