@@ -741,6 +741,56 @@
           object-fit: contain !important;
         }
       }
+      /* === ONE IMAGE, NO ZOOM, FIT ANY SCREEN === */
+      .hero {
+        position: relative !important;
+        /* خلي الهيرو بارتفاع شاشة الجهاز الحقيقي (أدق من vh على الموبايل) */
+        min-height: 100svh !important;
+        height: auto !important;
+
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+
+        background: #000 !important; /* خلفية لخطابات الـ letterbox لو ظهرت */
+        overflow: hidden !important;
+      }
+
+      .hero img.bg {
+        /* الصورة تدخل في الفلو الطبيعي عشان تاخد مقاسها الحقيقي */
+        position: static !important;
+        display: block !important;
+
+        /* مفيش تمديد بالقوة؛ خليه يحافظ على نسبته */
+        width: auto !important;
+        height: auto !important;
+
+        /* قيود قصوى: ما تتعدّاش إطار الجهاز */
+        max-width: 100vw !important;
+        max-height: 100svh !important;
+
+        object-fit: contain !important; /* تظهر كاملة بدون قص */
+        object-position: center center !important;
+        z-index: 1 !important; /* العناصر المطلقة فوقها (التيتل/اللوگو) */
+      }
+
+      /* استخدم dvh لو المتصفح بيدعمه (أدق من svh) */
+      @supports (height: 100dvh) {
+        .hero {
+          min-height: 100dvh !important;
+        }
+        .hero img.bg {
+          max-height: 100dvh !important;
+        }
+      }
+
+      /* موبايل: امنع أي قواعد قديمة كانت بتفرض 82vh إلخ */
+      @media (max-width: 768px) {
+        .hero {
+          height: auto !important;
+          min-height: 100svh !important;
+        }
+      }
     </style>
   </head>
 
