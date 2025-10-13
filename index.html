@@ -791,6 +791,44 @@
           min-height: 100svh !important;
         }
       }
+      /* === FORCE HERO IMAGE TO ALWAYS FILL SCREEN === */
+      .hero {
+        position: relative !important;
+        width: 100% !important;
+        height: 100svh !important; /* يغطي ارتفاع الشاشة بالكامل */
+        overflow: hidden !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        background: #000 !important;
+      }
+
+      .hero img.bg {
+        position: absolute !important;
+        inset: 0 !important; /* من الحواف كلها */
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: cover !important; /* ← يملى الشاشة بالكامل بدون أي فراغ */
+        object-position: center 30% !important; /* عدلها حسب الكادر */
+        z-index: 1 !important;
+      }
+
+      /* على الموبايل نفس المبدأ */
+      @media (max-width: 768px) {
+        .hero {
+          height: 100svh !important;
+        }
+        .hero img.bg {
+          object-position: center 25% !important; /* ارفع الكادر شوية للموبايل */
+        }
+      }
+
+      /* دعم أفضل للشاشات الحديثة */
+      @supports (height: 100dvh) {
+        .hero {
+          height: 100dvh !important;
+        }
+      }
     </style>
   </head>
 
