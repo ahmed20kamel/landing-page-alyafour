@@ -233,12 +233,12 @@
       }
 
       .map-wrap {
-        display: flex;
+        display: inline-flex !important; /* التزم بعرض المحتوى (=الماب) */
         flex-direction: column;
         gap: 4px;
         margin-top: 0;
-        align-items: flex-start;
-        width: 100%;
+        align-items: stretch;
+        width: fit-content !important; /* عرض الحاوية = عرض الماب */
       }
       .map-title {
         display: none;
@@ -276,6 +276,20 @@
       .social-icons svg:hover {
         background: var(--orange);
         transform: scale(1.15);
+      }
+
+      /* نجعل عرض الأيقونات مطابق تمامًا لعرض الماب */
+      .map-wrap .social-icons {
+        width: 100% !important; /* = عرض .map-wrap (= عرض الماب) */
+        max-width: none !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        justify-content: space-between; /* توزيع متساوي داخل الإطار */
+        gap: 0;
+        padding: 0 6px; /* مسافة داخلية بسيطة من الحواف من غير تغيير العرض الخارجي */
+      }
+      .map-wrap .social-icons a {
+        flex: 0 0 auto;
       }
 
       /* ===== RIGHT ===== */
@@ -626,7 +640,7 @@
           max-width: 90%;
           margin: 0 auto;
           text-align: center;
-          align-items: center;
+          align-items: center !important; /* تم تثبيتها مسبقاً */
         }
         .map-img {
           margin-inline: auto;
@@ -721,39 +735,33 @@
       @media (max-width: 768px) {
         /* خلى عناصر الأعمدة الجريد تتمركز أفقياً */
         .col {
-          justify-items: center; /* child of .col (زي .content و .map-wrap) */
+          justify-items: center;
         }
 
-        /* اكسر القواعد القديمة اللي بتحطها شمال */
         .content,
         .map-wrap {
-          justify-self: center !important; /* كان start */
+          justify-self: center !important;
         }
 
-        /* الماب + السوشيال يتمركزوا جوّا الكونتينر */
         .map-wrap {
-          align-items: center !important; /* كان flex-start */
           text-align: center;
           width: 100%;
           max-width: 90%;
           margin: 0 auto;
         }
 
-        /* صناديق المحتوى نفسها في المنتصف */
         .contact-box,
         .map-img {
-          margin-inline: auto; /* يضمن الصورة والصندوق في النص */
+          margin-inline: auto;
         }
 
-        /* العناوين والمحتوى */
         .contact-title {
           text-align: center;
         }
         .contact-content {
           text-align: left;
-        } /* تسيب النصوص بنفس محاذاة القراءة */
+        }
 
-        /* أيقونات السوشيال في النص */
         .social-icons {
           justify-content: center !important;
           transform: none;
@@ -762,18 +770,17 @@
           flex-wrap: wrap;
         }
       }
+
       /* ==== FINAL MOBILE CENTER FIX — put this at the very end ==== */
       @media (max-width: 768px) {
-        /* خلى الأعمدة نفسها تـcenter العناصر */
         .grid-quarters > .col {
           justify-items: center !important;
           align-items: center !important;
         }
 
-        /* وسّط بلوك الاتصال + الماب كـعناصر Grid */
         .grid-quarters > .col > .content,
         .grid-quarters > .col > .map-wrap {
-          place-self: center !important; /* = justify-self + align-self */
+          place-self: center !important;
           justify-self: center !important;
           align-self: center !important;
           margin-left: auto !important;
@@ -782,7 +789,6 @@
           text-align: center !important;
         }
 
-        /* تأكيد توسيط الصندوق والصورة نفسهم */
         .contact-box,
         .map-img {
           display: block;
@@ -790,12 +796,10 @@
           margin-right: auto !important;
         }
 
-        /* الماب + السوشيال جوّا الكونتينر */
         .map-wrap {
-          align-items: center !important; /* كان flex-start */
+          align-items: center !important;
         }
 
-        /* أيقونات السوشيال في النص */
         .social-icons {
           justify-content: center !important;
           transform: none !important;
@@ -804,9 +808,9 @@
           flex-wrap: wrap;
         }
       }
+
       /* ===== FINAL, PUT AT THE VERY END ===== */
       @media (max-width: 768px) {
-        /* 1) خلي سكشن الكونتاكت يوسّط كل اللي جواه */
         .content {
           display: flex !important;
           flex-direction: column !important;
@@ -816,18 +820,16 @@
           width: 100%;
         }
 
-        /* 2) الصندوق نفسه مايبقاش 100%؛ يبقى على قد المحتوى ويتوسّط */
         .contact-box {
-          width: auto !important; /* كان 100% */
+          width: auto !important;
           max-width: 560px !important;
-          display: inline-grid !important; /* يخلّيه يتوسّط كعنصر سطر-بلوك */
+          display: inline-grid !important;
           grid-template-columns: 52px auto !important;
           margin-left: auto !important;
           margin-right: auto !important;
           justify-content: center !important;
         }
 
-        /* تأكيد إن العمود الرمادي والمحتوى نفسهم في النص داخل الصندوق */
         .contact-rail,
         .contact-content {
           justify-self: center !important;
@@ -837,9 +839,8 @@
           text-align: center !important;
         }
 
-        /* 3) الماب في النص فعليًا */
         .map-wrap {
-          align-items: center !important; /* كان flex-start */
+          align-items: center !important;
           text-align: center !important;
           width: 100%;
         }
@@ -849,7 +850,6 @@
           margin-right: auto !important;
         }
 
-        /* 4) أيقونات السوشيال في النص */
         .social-icons {
           width: 100% !important;
           justify-content: center !important;
@@ -859,24 +859,22 @@
           flex-wrap: wrap !important;
         }
 
-        /* 5) الأعمدة نفسها تْسنتر أي طفل جواها لو لسه حاجة متمردة */
         .grid-quarters > .col {
           justify-items: center !important;
           align-items: center !important;
         }
       }
+
       /* =========================
-   1) DESKTOP/LAPTOP FIX
-   خلى الصفحة تفضل صفّين لحد ~1280px بدل 1600px
-   ========================= */
+         1) DESKTOP/LAPTOP FIX
+         خلى الصفحة تفضل صفّين لحد ~1280px بدل 1600px
+         ========================= */
       @media (min-width: 993px) {
-        /* لو في أي كود قبل كده قلب الاتجاه عند 1600px، رجّعه صفّين هنا */
         .grid-quarters {
           flex-direction: row !important;
           align-items: stretch !important;
           gap: 12px !important;
         }
-        /* رجّع تعويضات الديزاين على الديسكتوب فقط */
         .right-side {
           margin-left: -60px !important;
         }
@@ -890,17 +888,15 @@
       }
 
       /* =========================
-   2) MOBILE TRUE CENTER FIX
-   يوسّط بلوك الاتصال بالكامل + الماب + السوشيال
-   ========================= */
+         2) MOBILE TRUE CENTER FIX
+         يوسّط بلوك الاتصال بالكامل + الماب + السوشيال
+         ========================= */
       @media (max-width: 768px) {
-        /* خلى عمود الجريد يوسّط كل الأولاد */
         .grid-quarters > .col {
           justify-items: center !important;
           align-items: center !important;
         }
 
-        /* بلوك الاتصال ككتلة في النص بعرض مناسب */
         .content {
           place-self: center !important;
           justify-self: center !important;
@@ -912,16 +908,14 @@
           margin-right: auto !important;
         }
 
-        /* الصندوق نفسه يبقى في النص وبعرض ثابت/مرن */
         .contact-box {
-          width: 92vw !important; /* مرن للموبايل */
-          max-width: 560px !important; /* مايزيدش عن الديزاين */
+          width: 92vw !important;
+          max-width: 560px !important;
           margin-left: auto !important;
           margin-right: auto !important;
           justify-content: center !important;
         }
 
-        /* العمود الرمادي + محتوى الأرقام ييجوا متوازنين جوه الصندوق */
         .contact-rail,
         .contact-content {
           justify-self: center !important;
@@ -931,7 +925,6 @@
           text-align: center !important;
         }
 
-        /* الماب في النص فعليًا */
         .map-wrap {
           place-self: center !important;
           justify-self: center !important;
@@ -951,7 +944,6 @@
           width: 92vw !important;
         }
 
-        /* أيقونات السوشيال في النص */
         .social-icons {
           width: 100% !important;
           justify-content: center !important;
@@ -961,10 +953,39 @@
           flex-wrap: wrap !important;
         }
 
-        /* أمان إضافي: النصوص الكبيرة ما تكسرش السطر غصب */
         .contact-content,
         .stat-text {
           min-width: 0 !important;
+        }
+      }
+      /* ==== DEV CHECK: يظهر بادج على الموبايل بس ==== */
+      @media (max-width: 768px) {
+        .hero::after {
+          content: "Mobile cover2.png ✓";
+          position: absolute;
+          top: 8px;
+          left: 8px;
+          z-index: 5;
+          font: 700 12px/1 Montserrat, Arial, sans-serif;
+          color: #fff;
+          background: rgba(20, 160, 60, 0.9);
+          padding: 6px 8px;
+          border-radius: 6px;
+          pointer-events: none;
+        }
+      }
+      /* ==== DEV CHECK: حدود لمعرفة التطابق في العرض ==== */
+      .map-img {
+        outline: 2px dashed #1e90ff; /* أزرق */
+      }
+      .map-wrap .social-icons {
+        outline: 2px dashed #ff4757; /* أحمر */
+      }
+
+      /* على الموبايل: هنلون الخلفية جوّا السوشيال شفاف خفيف لتسهيل المقارنة */
+      @media (max-width: 768px) {
+        .map-wrap .social-icons {
+          background: rgba(255, 71, 87, 0.06);
         }
       }
     </style>
@@ -973,7 +994,10 @@
   <body>
     <!-- ===== HERO ===== -->
     <div class="hero">
-      <img src="1.JPG" alt="Cover Image" class="bg" />
+      <picture>
+        <source media="(max-width: 768px)" srcset="cover2.png" />
+        <img src="cover.jpg" alt="Cover Image" class="bg" />
+      </picture>
 
       <!-- Controls -->
       <div class="top-controls">
@@ -988,7 +1012,7 @@
         <button class="icon-btn" aria-label="Theme">
           <svg viewBox="0 0 24 24" aria-hidden="true">
             <path
-              d="M12 4.5a1 1 0 0 1 1-1h.01a1 1 0 0 1 0 2H13a1 1 0 0 1-1-1ZM5.636 6.05a1 1 0 0 1 1.414 0l.007.007a1 1 0 1 1-1.414 1.414l-.007-.007a1 1 0 0 1 0-1.414ZM4.5 12a1 1 0 0 1-1 1H3.49a1 1 0 1 1 0-2H3.5a1 1 0 0 1 1 1Zm8.5 6a6 6 0 1 1 0-12 6.5 6.5 0 0 0 0 12ZM17.95 6.05a1 1 0 0 1 0 1.414l-.007.007a1 1 0 1 1-1.414-1.414l.007-.007a1 1 0 0 1 1.414 0ZM20.5 12a1 1 0 0 1-1 1h-.01a1 1 0 1 1 0-2H19.5a1 1 0 0 1 1 1Zm-7.5 6.5a1 1 0 0 1 1 1v.01a1 1 0 1 1-2 0V19.5a1 1 0 0 1 1-1Z"
+              d="M12 4.5a1 1 0 0 1 1-1h.01a1 1 0 0 1 0 2H13a1 1 0 0 1-1-1ZM5.636 6.05a1 1 0 0 1 1.414 0l.007.007a1 1 0 1 1-1.414 1.414l-.007-.007a1 1 0 0 1 0-1.414ZM4.5 12a1 1 0 0 1-1 1h-.01a1 1 0 1 1 0-2H3.5a1 1 0 0 1 1 1Zm8.5 6a6 6 0 1 1 0-12 6.5 6.5 0 0 0 0 12ZM17.95 6.05a1 1 0 0 1 0 1.414l-.007.007a1 1 0 1 1-1.414-1.414l.007-.007a1 1 0 0 1 1.414 0ZM20.5 12a1 1 0 0 1-1 1h-.01a1 1 0 1 1 0-2H19.5a1 1 0 0 1 1 1Zm-7.5 6.5a1 1 0 0 1 1 1v.01a1 1 0 1 1-2 0V19.5a1 1 0 0 1 1-1Z"
             />
           </svg>
         </button>
@@ -1025,7 +1049,7 @@
               <div class="rail-mail" style="grid-row: 3">
                 <svg viewBox="0 0 24 24">
                   <path
-                    d="M20 4H4a2 2 0 00-2 2v12a2 2 0 002 2h16a2 2 0 002-2V6a2 2 0 00-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"
+                    d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"
                   />
                 </svg>
               </div>
