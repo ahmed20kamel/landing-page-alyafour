@@ -168,6 +168,7 @@
 
       /* ===== GRID ===== */
       .grid-quarters {
+        position: relative; /* علشان الباكجراوند الخاصة بالسيكشن */
         display: flex;
         align-items: stretch;
         gap: 12px;
@@ -175,7 +176,27 @@
         margin: 0 auto;
         padding: 18px 36px;
         border-top: 0;
+        z-index: 1;
       }
+      /* خلفية cover3.jpg — شفافة جدًا، أسفل منتصف السيكشن فقط */
+      .grid-quarters::before {
+        content: "";
+        position: absolute;
+        left: 50%;
+        bottom: 0;
+        transform: translateX(-50%);
+        width: min(900px, 70vw);
+        height: min(500px, 45vw);
+        background-image: url("cover3.jpg");
+        background-position: center bottom;
+        background-size: contain;
+        background-repeat: no-repeat;
+        opacity: 0.1; /* شفافية خفيفة جداً */
+        pointer-events: none;
+        filter: saturate(90%) contrast(95%);
+        z-index: 0;
+      }
+
       .col {
         flex: 1 1 50%;
         display: grid;
@@ -191,6 +212,8 @@
         width: 100%;
         justify-self: start;
       }
+
+      /* عنوان work with us — أنيميشن خفيفة عند الظهور */
       .contact-title {
         font-family: "Cormorant Garamond", serif;
         font-size: clamp(60px, 6.5vw, 88px);
@@ -201,6 +224,36 @@
         line-height: 1.05;
         margin-bottom: 16px;
         text-align: left;
+        will-change: transform, opacity;
+        opacity: 0;
+        transform: translateY(14px);
+        transition: opacity 0.6s ease, transform 0.6s ease;
+        position: relative;
+      }
+      .contact-title.in-view {
+        opacity: 1;
+        transform: none;
+      }
+      .contact-title::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: -6px;
+        height: 3px;
+        width: 100%;
+        background: linear-gradient(
+          90deg,
+          rgba(243, 110, 43, 0) 0%,
+          rgba(243, 110, 43, 0.85) 30%,
+          rgba(243, 110, 43, 0.85) 70%,
+          rgba(243, 110, 43, 0) 100%
+        );
+        transform-origin: left center;
+        transform: scaleX(0);
+        transition: transform 0.7s ease 0.1s;
+      }
+      .contact-title.in-view::after {
+        transform: scaleX(1);
       }
 
       .contact-box {
@@ -266,7 +319,7 @@
         unicode-bidi: bidi-override;
       }
 
-      /* MAP + SOCIAL — موبايل: في النص / ديسكتوب: شمال */
+      /* MAP + SOCIAL */
       .map-wrap {
         display: inline-flex;
         flex-direction: column;
@@ -289,8 +342,6 @@
         border: 5px double #000;
         background-color: #fff;
         padding: 4px;
-
-        /* reveal on scroll (subtle) — لا يغيّر الشكل */
         opacity: 0;
         transform: translateY(8px);
         transition: opacity 0.6s ease, transform 0.6s ease;
@@ -301,7 +352,7 @@
       }
       .map-img:hover {
         transform: translateY(-2px) scale(1.005);
-      } /* hover خفيف جدا */
+      }
       .social-icons {
         display: flex;
         gap: 18px;
@@ -354,7 +405,6 @@
         line-height: 0.9;
         text-shadow: 0 10px 22px rgba(0, 0, 0, 0.32);
         text-align: center;
-        /* ظهور ناعم + عدّاد */
         opacity: 0;
         transition: opacity 0.6s ease;
       }
@@ -380,7 +430,7 @@
         margin: 4px 0;
       }
 
-      /* ===== Timeline (رجعناه زي ما كان تمامًا) ===== */
+      /* ===== Timeline (unchanged visuals) ===== */
       .timeline {
         position: relative;
         max-width: 760px;
@@ -405,7 +455,6 @@
         background: #e6e6e6;
         border-radius: 999px;
         z-index: 0;
-        /* بدون أي أنيميشن */
       }
       .tl-item {
         position: relative;
@@ -491,7 +540,7 @@
         }
       }
 
-      /* ===== Desktop (map left + slight push right for stats/timeline) ===== */
+      /* ===== Desktop ===== */
       @media (min-width: 993px) {
         .grid-quarters {
           flex-direction: row;
@@ -629,6 +678,13 @@
         .stat-divider {
           height: 110px;
         }
+
+        /* الخلفية تقلّ في الموبايل شوية عشان ما تزاحمش */
+        .grid-quarters::before {
+          opacity: 0.08;
+          width: min(740px, 86vw);
+          height: min(420px, 55vw);
+        }
       }
 
       /* Small phones */
@@ -673,7 +729,7 @@
         }
       }
 
-      /* Animations keyframes */
+      /* Animations keyframes (hero title) */
       @keyframes fadeIn {
         from {
           opacity: 0;
@@ -712,15 +768,6 @@
           transform: translate(-220px, 0);
         }
       }
-      @keyframes lastsMove {
-        0% {
-          transform: translate(-150px, 40px);
-        }
-        100% {
-          transform: translate(-150px, 0);
-        }
-      }
-
       @media (prefers-reduced-motion: reduce) {
         * {
           animation: none !important;
@@ -728,7 +775,7 @@
         }
       }
 
-      /* screen-reader only utility */
+      /* sr-only */
       .sr-only {
         position: absolute !important;
         width: 1px;
@@ -739,6 +786,59 @@
         clip: rect(0, 0, 0, 0);
         white-space: nowrap;
         border: 0;
+      }
+      /* ===== 1) إلغاء خلفية cover3.jpg فورًا ===== */
+      .grid-quarters::before {
+        content: none !important; /* يشيل الطبقة تمامًا */
+        display: none !important;
+        background: none !important;
+        opacity: 0 !important;
+      }
+
+      /* ===== 2) Fix — منع تداخل التايملاين على الموبايل ===== */
+      @media (max-width: 768px) {
+        /* ارفع مسافة الخط الأفقي شوية حسب عرض الشاشة */
+        .timeline {
+          --lineY: clamp(110px, 24vw, 130px) !important;
+        }
+
+        /* وسّع المسافات بين العناصر شوية */
+        .timeline-grid {
+          gap: clamp(16px, 5vw, 28px) !important;
+        }
+
+        /* صغّر الدوائر */
+        .tl-item .dot {
+          top: calc(var(--lineY) - 9px) !important;
+          width: 16px !important;
+          height: 16px !important;
+          border-width: 3px !important;
+        }
+
+        /* صغّر سنة التايملاين واضبط الإزاحة الرأسية */
+        .tl-item .year {
+          font-size: clamp(16px, 5.5vw, 22px) !important;
+          padding: 2px 6px !important;
+          transform: translate(-50%, calc(-50% - 26px)) !important;
+        }
+        .tl-item:nth-child(2) .year,
+        .tl-item:nth-child(4) .year {
+          transform: translate(-50%, calc(-50% + 26px)) !important;
+        }
+
+        /* صغّر الوصف وخليه يلف السطور، وقلل المسافة تحته */
+        .tl-item .desc {
+          width: min(18ch, 84%) !important;
+          font-size: clamp(10.5px, 3.2vw, 12.5px) !important;
+          line-height: 1.45 !important;
+          top: calc(var(--lineY) + 28px) !important; /* كان أكبر */
+          overflow-wrap: anywhere !important; /* تمنع الكلمات الطويلة من خبطة العناصر */
+          hyphens: auto !important;
+        }
+        .tl-item:nth-child(2) .desc,
+        .tl-item:nth-child(4) .desc {
+          top: calc(var(--lineY) + 64px) !important; /* كان 80px */
+        }
       }
     </style>
   </head>
@@ -792,7 +892,7 @@
       <!-- LEFT COLUMN -->
       <div class="col">
         <div class="content">
-          <h2 class="contact-title">work with us</h2>
+          <h2 class="contact-title" id="work-title">work with us</h2>
 
           <div class="contact-box">
             <div class="contact-rail">
@@ -999,7 +1099,7 @@
         "(prefers-reduced-motion: reduce)"
       ).matches;
 
-      // 1) Reveal map image on scroll (subtle, no visual change to design)
+      // 1) Reveal map image on scroll (subtle)
       const mapImg = document.querySelector(".map-img");
       if (mapImg && !reduceMotion) {
         const ioMap = new IntersectionObserver(
@@ -1018,7 +1118,7 @@
         mapImg.classList.add("revealed");
       }
 
-      // 2) Count-up for "36" (stats) only
+      // 2) Count-up for "36"
       const yearsEl = document.getElementById("years");
       function countUp(el) {
         const target = parseInt(el.getAttribute("data-target"), 10) || 0;
@@ -1047,6 +1147,27 @@
           { threshold: 0.35 }
         );
         ioNum.observe(yearsEl);
+      }
+
+      // 3) Work with us — reveal animation
+      const workTitle = document.getElementById("work-title");
+      if (workTitle) {
+        if (!reduceMotion) {
+          const ioWork = new IntersectionObserver(
+            (entries, obs) => {
+              entries.forEach((e) => {
+                if (e.isIntersecting) {
+                  workTitle.classList.add("in-view");
+                  obs.unobserve(e.target);
+                }
+              });
+            },
+            { threshold: 0.2 }
+          );
+          ioWork.observe(workTitle);
+        } else {
+          workTitle.classList.add("in-view");
+        }
       }
     </script>
   </body>
