@@ -4,13 +4,20 @@
     <meta charset="UTF-8" />
     <title>Al Yafour - Index Page</title>
 
-    <!-- 👇 أهم إضافة لإصلاح الموبايل -->
+    <!-- Mobile viewport -->
     <meta
       name="viewport"
       content="width=device-width, initial-scale=1, viewport-fit=cover"
     />
+    <meta
+      name="description"
+      content="Al Yafour — We build what lasts. 36+ years delivering high-quality construction across the UAE."
+    />
+    <meta name="theme-color" content="#000000" />
 
-    <!-- Fonts -->
+    <!-- Performance: fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Cormorant+Garamond:wght@500;600&display=swap"
       rel="stylesheet"
@@ -28,6 +35,10 @@
         margin: 0;
         padding: 0;
       }
+      html,
+      body {
+        overflow-x: hidden;
+      }
       body {
         font-family: Montserrat, Arial, sans-serif;
         background: #fff;
@@ -39,10 +50,16 @@
         position: relative;
         width: 100%;
         height: 100vh;
-        /* 👇 تحسين لتوافق ارتفاع الشاشة على الموبايل دون تغيير باقي الميديا */
         height: 100svh;
         min-height: 100dvh;
         overflow: hidden;
+        background: #000;
+        border-bottom: 0;
+        box-shadow: none;
+        outline: 0;
+      }
+      .hero picture {
+        display: block;
       }
       .hero img.bg {
         position: absolute;
@@ -50,6 +67,14 @@
         width: 100%;
         height: 100%;
         object-fit: cover;
+        object-position: center;
+        display: block;
+        transform: translateZ(0);
+        border: 0;
+        outline: 0;
+      }
+      .hero + .grid-quarters {
+        border-top: 0 !important;
       }
 
       /* Top controls */
@@ -149,6 +174,7 @@
         max-width: 1600px;
         margin: 0 auto;
         padding: 18px 36px;
+        border-top: 0;
       }
       .col {
         flex: 1 1 50%;
@@ -165,7 +191,6 @@
         width: 100%;
         justify-self: start;
       }
-
       .contact-title {
         font-family: "Cormorant Garamond", serif;
         font-size: clamp(60px, 6.5vw, 88px);
@@ -180,7 +205,7 @@
 
       .contact-box {
         display: grid;
-        grid-template-columns: 52px 1fr;
+        grid-template-columns: 64px 1fr;
         grid-template-rows: auto auto auto auto;
         column-gap: 0;
         align-items: stretch;
@@ -207,8 +232,8 @@
         border-bottom: 0;
       }
       .contact-rail svg {
-        width: 22px;
-        height: 22px;
+        width: 24px;
+        height: 24px;
         fill: #fff;
       }
 
@@ -241,13 +266,16 @@
         unicode-bidi: bidi-override;
       }
 
+      /* MAP + SOCIAL — موبايل: في النص / ديسكتوب: شمال */
       .map-wrap {
-        display: inline-flex !important; /* التزم بعرض المحتوى (=الماب) */
+        display: inline-flex;
         flex-direction: column;
         gap: 4px;
         margin-top: 0;
-        align-items: stretch;
-        width: fit-content !important; /* عرض الحاوية = عرض الماب */
+        align-items: center;
+        width: fit-content;
+        margin-left: auto;
+        margin-right: auto;
       }
       .map-title {
         display: none;
@@ -261,16 +289,26 @@
         border: 5px double #000;
         background-color: #fff;
         padding: 4px;
-      }
 
-      /* Social icons */
+        /* reveal on scroll (subtle) — لا يغيّر الشكل */
+        opacity: 0;
+        transform: translateY(8px);
+        transition: opacity 0.6s ease, transform 0.6s ease;
+      }
+      .map-img.revealed {
+        opacity: 1;
+        transform: none;
+      }
+      .map-img:hover {
+        transform: translateY(-2px) scale(1.005);
+      } /* hover خفيف جدا */
       .social-icons {
         display: flex;
         gap: 18px;
         margin-top: 16px;
-        justify-content: flex-start;
+        justify-content: center;
         align-items: center;
-        transform: translateY(-10px);
+        transform: none;
       }
       .social-icons svg {
         width: 48px;
@@ -287,41 +325,27 @@
         transform: scale(1.15);
       }
 
-      /* نجعل عرض الأيقونات مطابق تمامًا لعرض الماب */
-      .map-wrap .social-icons {
-        width: 100% !important; /* = عرض .map-wrap (= عرض الماب) */
-        max-width: none !important;
-        margin-left: 0 !important;
-        margin-right: 0 !important;
-        justify-content: space-between; /* توزيع متساوي داخل الإطار */
-        gap: 0;
-        padding: 0 6px; /* مسافة داخلية بسيطة من الحواف من غير تغيير العرض الخارجي */
-      }
-      .map-wrap .social-icons a {
-        flex: 0 0 auto;
-      }
-
       /* ===== RIGHT ===== */
       .right-side {
         justify-items: end;
         gap: 10px;
-        margin-left: -60px;
+        margin-left: 0;
       }
       .stats-holder {
         display: flex;
         align-items: center;
-        justify-content: flex-end;
+        justify-content: center;
         height: 100%;
         margin: 0;
       }
       .stats-box {
         display: flex;
         align-items: center;
-        justify-content: flex-start;
+        justify-content: center;
         gap: 26px;
         max-width: 800px;
         width: 100%;
-        transform: translate(-70px, 3px);
+        transform: none;
       }
       .stat-number {
         font-size: 200px;
@@ -329,6 +353,13 @@
         color: var(--orange);
         line-height: 0.9;
         text-shadow: 0 10px 22px rgba(0, 0, 0, 0.32);
+        text-align: center;
+        /* ظهور ناعم + عدّاد */
+        opacity: 0;
+        transition: opacity 0.6s ease;
+      }
+      .stat-number.visible {
+        opacity: 1;
       }
       .stat-divider {
         width: 4px;
@@ -343,19 +374,19 @@
         font-size: 30px;
         font-weight: 700;
         text-transform: capitalize;
+        text-align: center;
       }
       .stat-text p {
         margin: 4px 0;
       }
 
-      /* ===== Timeline ===== */
+      /* ===== Timeline (رجعناه زي ما كان تمامًا) ===== */
       .timeline {
         position: relative;
         max-width: 760px;
         width: 100%;
         padding: 16px 0 0;
-        margin-left: -120px;
-        margin-top: -90px;
+        margin: 0 auto;
         --lineY: 82px;
       }
       .timeline-grid {
@@ -374,6 +405,7 @@
         background: #e6e6e6;
         border-radius: 999px;
         z-index: 0;
+        /* بدون أي أنيميشن */
       }
       .tl-item {
         position: relative;
@@ -399,7 +431,7 @@
         padding: 2px 8px;
         line-height: 1;
         border-radius: 4px;
-        font-size: 40px;
+        font-size: clamp(28px, 2.8vw, 40px);
         font-weight: 800;
         color: #111;
         white-space: nowrap;
@@ -415,10 +447,10 @@
         left: 50%;
         transform: translateX(-50%);
         text-align: center;
-        font-size: 13px;
+        font-size: clamp(12px, 1.4vw, 14px);
         line-height: 1.35;
         color: #444;
-        width: 230px;
+        width: min(22ch, 90%);
         top: calc(var(--lineY) + 38px);
       }
       .tl-item:nth-child(2) .desc,
@@ -452,36 +484,196 @@
         .stat-number {
           font-size: 160px;
         }
-        .stats-box {
-          transform: none;
-          justify-content: center;
-        }
         .timeline {
           max-width: 620px;
-          margin-left: 0;
-          margin-top: 0;
+          margin: 0;
           --lineY: 96px;
-        }
-        .tl-item .year {
-          font-size: 32px;
-        }
-        .tl-item .desc {
-          font-size: 13px;
-          width: 220px;
-        }
-        .map-wrap {
-          margin-top: 0;
-        }
-        .top-controls {
-          right: 16px;
-          top: 12px;
-        }
-        .logo {
-          top: 56px;
         }
       }
 
-      /* === Animations === */
+      /* ===== Desktop (map left + slight push right for stats/timeline) ===== */
+      @media (min-width: 993px) {
+        .grid-quarters {
+          flex-direction: row;
+          align-items: stretch;
+          gap: 12px;
+        }
+        .grid-quarters .col .map-wrap {
+          margin-left: 0;
+          margin-right: auto;
+          justify-self: start;
+          align-items: stretch;
+          text-align: left;
+        }
+        .map-wrap .social-icons {
+          justify-content: flex-start;
+          margin-left: 0;
+          margin-right: auto;
+        }
+        .stats-box {
+          transform: translateX(20px);
+        }
+        .timeline {
+          margin-left: 20px;
+        }
+      }
+
+      /* ===== Mobile ===== */
+      @media (max-width: 768px) {
+        .hero {
+          height: 82vh;
+        }
+        .title .line {
+          opacity: 1;
+          font-size: clamp(26px, 7.2vw, 56px);
+          margin: 8px 0;
+        }
+        .word-we,
+        .word-build,
+        .word-what,
+        .word-lasts {
+          transform: none !important;
+        }
+
+        .grid-quarters {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          gap: 40px;
+          width: 100%;
+          text-align: center;
+        }
+        .content {
+          order: 1;
+          max-width: 90%;
+          margin: 0 auto;
+          text-align: center;
+        }
+        .contact-title {
+          text-align: center;
+        }
+        .contact-box {
+          margin-inline: auto;
+          grid-template-columns: 60px 1fr;
+        }
+        .contact-rail svg {
+          width: 22px;
+          height: 22px;
+        }
+
+        .right-side {
+          order: 2;
+          width: 100%;
+          margin: 0 auto;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+        }
+        .stats-holder {
+          justify-content: center;
+          width: 100%;
+        }
+        .stats-box {
+          justify-content: center;
+          align-items: center;
+          text-align: center;
+          margin: 0 auto;
+          transform: none;
+        }
+        .stat-text {
+          text-align: center;
+        }
+
+        .timeline {
+          order: 3;
+          max-width: 90%;
+          margin: 0 auto;
+          text-align: center;
+          --lineY: 100px;
+        }
+        .timeline-grid {
+          gap: 24px;
+        }
+        .tl-item .year {
+          font-size: 28px;
+        }
+        .tl-item .desc {
+          width: 210px;
+          font-size: 12.5px;
+        }
+
+        .map-wrap {
+          order: 4;
+          max-width: 90%;
+          margin: 0 auto;
+          text-align: center;
+          align-items: center;
+        }
+        .map-img {
+          margin-inline: auto;
+        }
+        .social-icons {
+          justify-content: center;
+          transform: none;
+          margin-top: 14px;
+          flex-wrap: wrap;
+        }
+
+        .stat-number {
+          font-size: 130px;
+        }
+        .stat-text {
+          font-size: 22px;
+        }
+        .stat-divider {
+          height: 110px;
+        }
+      }
+
+      /* Small phones */
+      @media (max-width: 480px) {
+        .title .line {
+          font-size: clamp(22px, 8.5vw, 44px);
+        }
+        .contact-title {
+          font-size: clamp(38px, 8.3vw, 62px);
+          line-height: 1.08;
+          text-align: center;
+        }
+        .contact-item a {
+          font-size: 16px;
+        }
+        .stat-number {
+          font-size: 110px;
+        }
+        .stat-text {
+          font-size: 20px;
+        }
+        .stat-divider {
+          height: 96px;
+        }
+        .timeline {
+          max-width: 420px;
+          --lineY: 106px;
+        }
+        .timeline-grid {
+          gap: 18px;
+        }
+        .tl-item .year {
+          font-size: 24px;
+        }
+        .tl-item .desc {
+          width: 190px;
+          font-size: 12px;
+        }
+        .logo img {
+          height: 12vw;
+          max-height: 100px;
+        }
+      }
+
+      /* Animations keyframes */
       @keyframes fadeIn {
         from {
           opacity: 0;
@@ -529,497 +721,53 @@
         }
       }
 
-      /* ============================= */
-      /*     MOBILE-OPTIMIZED STACK    */
-      /* ============================= */
-
-      .grid-quarters > .col,
-      .contact-content,
-      .stat-text {
-        min-width: 0;
-      }
-
-      @media (max-width: 1600px) {
-        .grid-quarters {
-          flex-direction: column;
-          align-items: center;
-          padding: 26px 28px;
-          gap: 18px;
-        }
-        .col {
-          width: 100%;
-          grid-template-rows: auto;
-          row-gap: 14px;
-        }
-        .right-side {
-          margin-left: 0;
-          justify-items: center;
-          width: 100%;
-        }
-        .stats-holder {
-          justify-content: center;
-        }
-        .stats-box {
-          transform: none;
-          justify-content: center;
-          max-width: 96%;
-        }
-        .timeline {
-          max-width: 900px;
-          margin-left: 0;
-          margin-top: 0;
-          --lineY: 92px;
-        }
-      }
-
-      /* ===== Mobile: كل شيء في النص ومرتب ===== */
-      @media (max-width: 768px) {
-        /* الهيرو */
-        .hero {
-          height: 82vh;
-        }
-        .title .line {
-          opacity: 1;
-          font-size: clamp(26px, 7.2vw, 56px);
-          margin: 8px 0;
-        }
-        .word-we,
-        .word-build,
-        .word-what,
-        .word-lasts {
-          transform: none !important;
-        }
-
-        /* ترتيب وتوسيط البلوكات */
-        .grid-quarters {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
-          gap: 40px;
-          width: 100%;
-          text-align: center;
-        }
-
-        .content {
-          order: 1;
-          max-width: 90%;
-          margin: 0 auto;
-          text-align: center;
-        }
-        .contact-title {
-          text-align: center;
-        }
-        .contact-box {
-          margin-inline: auto;
-        }
-
-        .right-side {
-          order: 2;
-          width: 100%;
-          margin: 0 auto;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-        }
-        .stats-holder {
-          justify-content: center;
-          width: 100%;
-        }
-        .stats-box {
-          justify-content: center;
-          align-items: center;
-          text-align: center;
-          margin: 0 auto;
-          transform: none;
-        }
-        .stat-text {
-          text-align: center;
-        }
-
-        .timeline {
-          order: 3;
-          max-width: 90%;
-          margin: 0 auto;
-          text-align: center;
-        }
-
-        .map-wrap {
-          order: 4;
-          max-width: 90%;
-          margin: 0 auto;
-          text-align: center;
-          align-items: center !important; /* تم تثبيتها مسبقاً */
-        }
-        .map-img {
-          margin-inline: auto;
-        }
-        .social-icons {
-          justify-content: center;
-          transform: none;
-          margin-top: 14px;
-          flex-wrap: wrap;
-        }
-
-        /* أحجام آمنة */
-        .stat-number {
-          font-size: 130px;
-        }
-        .stat-text {
-          font-size: 22px;
-        }
-        .stat-divider {
-          height: 110px;
-        }
-
-        .timeline {
-          --lineY: 100px;
-        }
-        .timeline-grid {
-          gap: 24px;
-        }
-        .tl-item .year {
-          font-size: 28px;
-        }
-        .tl-item .desc {
-          width: 210px;
-          font-size: 12.5px;
-        }
-        .social-icons svg {
-          width: 46px;
-          height: 46px;
-          padding: 9px;
-        }
-      }
-
-      /* موبايل صغير جدًا */
-      @media (max-width: 480px) {
-        .title .line {
-          font-size: clamp(22px, 8.5vw, 44px);
-        }
-        .contact-title {
-          font-size: clamp(38px, 8.3vw, 62px);
-          line-height: 1.08;
-          text-align: center;
-        }
-        .contact-item a {
-          font-size: 16px;
-        }
-        .stat-number {
-          font-size: 110px;
-        }
-        .stat-text {
-          font-size: 20px;
-        }
-        .stat-divider {
-          height: 96px;
-        }
-        .timeline {
-          max-width: 420px;
-          --lineY: 106px;
-        }
-        .timeline-grid {
-          gap: 18px;
-        }
-        .tl-item .year {
-          font-size: 24px;
-        }
-        .tl-item .desc {
-          width: 190px;
-          font-size: 12px;
-        }
-        .logo img {
-          height: 12vw;
-          max-height: 100px;
-        }
-      }
-
       @media (prefers-reduced-motion: reduce) {
-        .title .line {
+        * {
           animation: none !important;
-          opacity: 1 !important;
-        }
-      }
-      /* ----- Center EVERYTHING on mobile ----- */
-      @media (max-width: 768px) {
-        /* خلى عناصر الأعمدة الجريد تتمركز أفقياً */
-        .col {
-          justify-items: center;
-        }
-
-        .content,
-        .map-wrap {
-          justify-self: center !important;
-        }
-
-        .map-wrap {
-          text-align: center;
-          width: 100%;
-          max-width: 90%;
-          margin: 0 auto;
-        }
-
-        .contact-box,
-        .map-img {
-          margin-inline: auto;
-        }
-
-        .contact-title {
-          text-align: center;
-        }
-        .contact-content {
-          text-align: left;
-        }
-
-        .social-icons {
-          justify-content: center !important;
-          transform: none;
-          margin-top: 14px;
-          gap: 14px;
-          flex-wrap: wrap;
+          transition: none !important;
         }
       }
 
-      /* ==== FINAL MOBILE CENTER FIX — put this at the very end ==== */
-      @media (max-width: 768px) {
-        .grid-quarters > .col {
-          justify-items: center !important;
-          align-items: center !important;
-        }
-
-        .grid-quarters > .col > .content,
-        .grid-quarters > .col > .map-wrap {
-          place-self: center !important;
-          justify-self: center !important;
-          align-self: center !important;
-          margin-left: auto !important;
-          margin-right: auto !important;
-          max-width: min(560px, 92vw) !important;
-          text-align: center !important;
-        }
-
-        .contact-box,
-        .map-img {
-          display: block;
-          margin-left: auto !important;
-          margin-right: auto !important;
-        }
-
-        .map-wrap {
-          align-items: center !important;
-        }
-
-        .social-icons {
-          justify-content: center !important;
-          transform: none !important;
-          margin-top: 14px !important;
-          gap: 14px !important;
-          flex-wrap: wrap;
-        }
-      }
-
-      /* ===== FINAL, PUT AT THE VERY END ===== */
-      @media (max-width: 768px) {
-        .content {
-          display: flex !important;
-          flex-direction: column !important;
-          align-items: center !important;
-          justify-content: center !important;
-          text-align: center !important;
-          width: 100%;
-        }
-
-        .contact-box {
-          width: auto !important;
-          max-width: 560px !important;
-          display: inline-grid !important;
-          grid-template-columns: 52px auto !important;
-          margin-left: auto !important;
-          margin-right: auto !important;
-          justify-content: center !important;
-        }
-
-        .contact-rail,
-        .contact-content {
-          justify-self: center !important;
-        }
-
-        .contact-title {
-          text-align: center !important;
-        }
-
-        .map-wrap {
-          align-items: center !important;
-          text-align: center !important;
-          width: 100%;
-        }
-        .map-img {
-          display: block !important;
-          margin-left: auto !important;
-          margin-right: auto !important;
-        }
-
-        .social-icons {
-          width: 100% !important;
-          justify-content: center !important;
-          transform: none !important;
-          gap: 14px !important;
-          margin-top: 14px !important;
-          flex-wrap: wrap !important;
-        }
-
-        .grid-quarters > .col {
-          justify-items: center !important;
-          align-items: center !important;
-        }
-      }
-
-      /* =========================
-         1) DESKTOP/LAPTOP FIX
-         خلى الصفحة تفضل صفّين لحد ~1280px بدل 1600px
-         ========================= */
-      @media (min-width: 993px) {
-        .grid-quarters {
-          flex-direction: row !important;
-          align-items: stretch !important;
-          gap: 12px !important;
-        }
-        .right-side {
-          margin-left: -60px !important;
-        }
-        .stats-box {
-          transform: translate(-70px, 3px) !important;
-        }
-        .timeline {
-          margin-left: -120px !important;
-          margin-top: -90px !important;
-        }
-      }
-
-      /* =========================
-         2) MOBILE TRUE CENTER FIX
-         يوسّط بلوك الاتصال بالكامل + الماب + السوشيال
-         ========================= */
-      @media (max-width: 768px) {
-        .grid-quarters > .col {
-          justify-items: center !important;
-          align-items: center !important;
-        }
-
-        .content {
-          place-self: center !important;
-          justify-self: center !important;
-          align-self: center !important;
-          width: 100% !important;
-          max-width: 560px !important;
-          text-align: center !important;
-          margin-left: auto !important;
-          margin-right: auto !important;
-        }
-
-        .contact-box {
-          width: 92vw !important;
-          max-width: 560px !important;
-          margin-left: auto !important;
-          margin-right: auto !important;
-          justify-content: center !important;
-        }
-
-        .contact-rail,
-        .contact-content {
-          justify-self: center !important;
-        }
-
-        .contact-title {
-          text-align: center !important;
-        }
-
-        .map-wrap {
-          place-self: center !important;
-          justify-self: center !important;
-          align-self: center !important;
-          align-items: center !important;
-          text-align: center !important;
-          width: 100% !important;
-          max-width: 560px !important;
-          margin-left: auto !important;
-          margin-right: auto !important;
-        }
-        .map-img {
-          display: block !important;
-          margin-left: auto !important;
-          margin-right: auto !important;
-          max-width: 560px !important;
-          width: 92vw !important;
-        }
-
-        .social-icons {
-          width: 100% !important;
-          justify-content: center !important;
-          transform: none !important;
-          gap: 14px !important;
-          margin-top: 14px !important;
-          flex-wrap: wrap !important;
-        }
-
-        .contact-content,
-        .stat-text {
-          min-width: 0 !important;
-        }
-      }
-      /* ==== DEV CHECK: يظهر بادج على الموبايل بس ==== */
-      @media (max-width: 768px) {
-        .hero::after {
-          content: "Mobile cover2.png ✓";
-          position: absolute;
-          top: 8px;
-          left: 8px;
-          z-index: 5;
-          font: 700 12px/1 Montserrat, Arial, sans-serif;
-          color: #fff;
-          background: rgba(20, 160, 60, 0.9);
-          padding: 6px 8px;
-          border-radius: 6px;
-          pointer-events: none;
-        }
-      }
-      /* ==== DEV CHECK: حدود لمعرفة التطابق في العرض ==== */
-      .map-img {
-        outline: 2px dashed #1e90ff; /* أزرق */
-      }
-      .map-wrap .social-icons {
-        outline: 2px dashed #ff4757; /* أحمر */
-      }
-
-      /* على الموبايل: هنلون الخلفية جوّا السوشيال شفاف خفيف لتسهيل المقارنة */
-      @media (max-width: 768px) {
-        .map-wrap .social-icons {
-          background: rgba(255, 71, 87, 0.06);
-        }
+      /* screen-reader only utility */
+      .sr-only {
+        position: absolute !important;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
       }
     </style>
   </head>
 
   <body>
-    <!-- ===== HERO ===== -->
     <div class="hero">
       <picture>
         <source media="(max-width: 768px)" srcset="cover2.png" />
-        <img src="cover.jpg" alt="Cover Image" class="bg" />
+        <img
+          src="cover.jpg"
+          alt="Cover Image"
+          class="bg"
+          decoding="async"
+          fetchpriority="high"
+        />
       </picture>
 
-      <!-- Controls -->
+      <h1 class="sr-only">Al Yafour — We Build What Lasts</h1>
+
       <div class="top-controls">
-        <button class="icon-btn" aria-label="Language">
-          <svg viewBox="0 0 24 24" aria-hidden="true">
+        <button class="icon-btn" aria-label="Language" type="button">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
             <path
               d="M12 2a10 10 0 1010 10A10.011 10.011 0 0012 2zm7.93 9h-3.1a15.7 15.7 0 00-1.21-5.01A8.022 8.022 0 0119.93 11zM12 4a13.7 13.7 0 011.86 7H10.1A13.7 13.7 0 0112 4zM4.07 13h3.1a15.7 15.7 0 001.21 5.01A8.022 8.022 0 014.07 13zM7.17 11H4.07A8.022 8.022 0 018.38 5.99 15.7 15.7 0 007.17 11zm5.83 9a13.7 13.7 0 01-1.9-7h3.76a13.7 13.7 0 01-1.86 7zM14.62 18.01A15.7 15.7 0 0015.83 13h3.1a8.022 8.022 0 01-4.31 5.01z"
             />
           </svg>
         </button>
-
-        <button class="icon-btn" aria-label="Theme">
-          <svg viewBox="0 0 24 24" aria-hidden="true">
+        <button class="icon-btn" aria-label="Theme" type="button">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
             <path
               d="M12 4.5a1 1 0 0 1 1-1h.01a1 1 0 0 1 0 2H13a1 1 0 0 1-1-1ZM5.636 6.05a1 1 0 0 1 1.414 0l.007.007a1 1 0 1 1-1.414 1.414l-.007-.007a1 1 0 0 1 0-1.414ZM4.5 12a1 1 0 0 1-1 1h-.01a1 1 0 1 1 0-2H3.5a1 1 0 0 1 1 1Zm8.5 6a6 6 0 1 1 0-12 6.5 6.5 0 0 0 0 12ZM17.95 6.05a1 1 0 0 1 0 1.414l-.007.007a1 1 0 1 1-1.414-1.414l.007-.007a1 1 0 0 1 1.414 0ZM20.5 12a1 1 0 0 1-1 1h-.01a1 1 0 1 1 0-2H19.5a1 1 0 0 1 1 1Zm-7.5 6.5a1 1 0 0 1 1 1v.01a1 1 0 1 1-2 0V19.5a1 1 0 0 1 1-1Z"
             />
@@ -1049,21 +797,21 @@
           <div class="contact-box">
             <div class="contact-rail">
               <div class="rail-phone" style="grid-row: 1 / span 2">
-                <svg viewBox="0 0 24 24">
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                   <path
                     d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24 11.72 11.72 0 003.68.59 1 1 0 011 1v3.5a1 1 0 01-1 1C10.3 22.04 2 13.74 2 3.99a1 1 0 011-1h3.5a1 1 0 011 1c0 1.28.2 2.52.59 3.68a1 1 0 01-.24 1.01l-2.23 2.23z"
                   />
                 </svg>
               </div>
               <div class="rail-mail" style="grid-row: 3">
-                <svg viewBox="0 0 24 24">
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                   <path
                     d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"
                   />
                 </svg>
               </div>
               <div class="rail-web" style="grid-row: 4">
-                <svg viewBox="0 0 24 24">
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                   <path
                     d="M12 2a10 10 0 1010 10A10.011 10.011 0 0012 2zm7.93 9h-3.1a15.7 15.7 0 00-1.21-5.01A8.022 8.022 0 0119.93 11zM12 4a13.7 13.7 0 011.86 7H10.1A13.7 13.7 0 0112 4zM4.07 13h3.1a15.7 15.7 0 001.21 5.01A8.022 8.022 0 014.07 13zM7.17 11H4.07A8.022 8.022 0 018.38 5.99 15.7 15.7 0 007.17 11zm5.83 9a13.7 13.7 0 01-1.9-7h3.76a13.7 13.7 0 01-1.86 7zM14.62 18.01A15.7 15.7 0 0015.83 13h3.1a8.022 8.022 0 01-4.31 5.01z"
                   />
@@ -1079,6 +827,7 @@
                 <a
                   href="https://wa.me/971506222469"
                   target="_blank"
+                  rel="noopener noreferrer"
                   class="whatsapp-link"
                   >+971 50 6222469</a
                 >
@@ -1087,7 +836,10 @@
                 <a href="mailto:info@alyafour.com">info@alyafour.com</a>
               </div>
               <div class="contact-item">
-                <a href="https://www.alyafour.com" target="_blank"
+                <a
+                  href="https://www.alyafour.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   >www.alyafour.com</a
                 >
               </div>
@@ -1104,29 +856,47 @@
             rel="noopener noreferrer"
             aria-label="Open location on Google Maps"
           >
-            <img src="map.png" alt="Map" class="map-img" />
+            <img
+              src="map.png"
+              alt="Map"
+              class="map-img"
+              loading="lazy"
+              decoding="async"
+            />
           </a>
 
           <div class="social-icons">
             <a
               href="https://wa.me/971506222469"
               target="_blank"
+              rel="noopener noreferrer"
               aria-label="WhatsApp"
               title="Chat on WhatsApp"
             >
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+                focusable="false"
+              >
                 <path
-                  d="M16.707 13.525c-.248-.124-1.467-.724-1.695-.806-.228-.83-.395-.124-.562.124-.165.248-.646.806-.793.974-.146.165-.29.186-.538.062-.248-.124-1.045-.385-1.99-1.228-.736-.657-1.232-1.469-1.378-1.717-.146-.248-.015-.382.11-.506.113-.112.248-.29.373-.435.124-.145.165-.248.248-.414.083-.165.042-.31-.021-.434-.062-.124-.562-1.35-.771-1.848-.203-.486-.41-.42-.562-.428h-.48a.924.924 0 0 0-.663.31c-.228.248-.87.85-.87 2.069 0 1.22.892 2.396 1.017 2.562.124.165 1.755 2.678 4.26 3.754.596.257 1.06.41 1.423.526.597.19 1.14.163 1.57.099.48-.072 1.467-.6 1.674-1.179.207-.58.207-1.076.145-1.18-.062-.103-.227-.165-.475-.29zM12.003 2C6.478 2 2 6.478 2 12.003c0 2.119.692 4.081 1.866 5.675L2 22l4.447-1.864A9.958 9.958 0 0 0 12.003 22C17.528 22 22 17.522 22 12.003 22 6.478 17.528 2 12.003 2zM12 20a8 8 0 0 1-4.063-1.09l-.29-.173-2.633 1.104.701-2.78-.181-.285A7.98 7.98 0 1 1 20 12a7.968 7.968 0 0 1-8 8z"
+                  d="M16.707 13.525c-.248-.124-1.467-.724-1.695-.806-.228-.083-.395-.124-.562.124-.165.248-.646.806-.793.974-.146.165-.29.186-.538.062-.248-.124-1.045-.385-1.99-1.228-.736-.657-1.232-1.469-1.378-1.717-.146-.248-.015-.382.11-.506.113-.112.248-.29.373-.435.124-.145.165-.248.248-.414.083-.165.042-.31-.021-.434-.062-.124-.562-1.35-.771-1.848-.203-.486-.41-.42-.562-.428h-.48a.924.924 0 0 0-.663.31c-.228.248-.87.85-.87 2.069 0 1.22.892 2.396 1.017 2.562.124.165 1.755 2.678 4.26 3.754.596.257 1.06.41 1.423.526.597.19 1.14.163 1.57.099.48-.072 1.467-.6 1.674-1.179.207-.58.207-1.076.145-1.18-.062-.103-.227-.165-.475-.29zM12.003 2C6.478 2 2 6.478 2 12.003c0 2.119.692 4.081 1.866 5.675L2 22l4.447-1.864A9.958 9.958 0 0 0 12.003 22C17.528 22 22 17.522 22 12.003 22 6.478 17.528 2 12.003 2zM12 20a8 8 0 0 1-4.063-1.09l-.29-.173-2.633 1.104.701-2.78-.181-.285A7.98 7.98 0 1 1 20 12a7.968 7.968 0 0 1-8 8z"
                 />
               </svg>
             </a>
             <a
               href="https://www.instagram.com/al_yafour/"
               target="_blank"
+              rel="noopener noreferrer"
               aria-label="Instagram"
               title="Visit our Instagram"
             >
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+                focusable="false"
+              >
                 <path
                   d="M7 2C4.243 2 2 4.243 2 7v10c0 2.757 2.243 5 5 5h10c2.757 0 5-2.243 5-5V7c0-2.757-2.243-5-5-5H7zm10 2c1.654 0 3 1.346 3 3v10c0 1.654-1.346 3-3 3H7c-1.654 0-3-1.346-3-3V7c0-1.654 1.346-3 3-3h10zM12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm0 2a3 3 0 1 1 0 6 3 3 0 0 1 0-6zm4.5-3a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3z"
                 />
@@ -1135,10 +905,16 @@
             <a
               href="https://www.linkedin.com/company/36594447/admin/dashboard/"
               target="_blank"
+              rel="noopener noreferrer"
               aria-label="LinkedIn"
               title="Visit our LinkedIn"
             >
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+                focusable="false"
+              >
                 <path
                   d="M4.98 3C3.33 3 2 4.34 2 5.98s1.33 2.98 2.98 2.98c1.65 0 2.98-1.34 2.98-2.98S6.63 3 4.98 3zM2.4 21h5.17V9H2.4v12zM9.34 9v12h5.16v-6.18c0-1.6.3-3.16 2.29-3.16 1.96 0 1.97 1.83 1.97 3.26V21H24v-6.88C24 9.94 21.75 9 19.62 9c-2.15 0-3.06 1.18-3.59 2h-.05V9H9.34z"
                 />
@@ -1147,10 +923,16 @@
             <a
               href="https://www.tiktok.com/@al_yafour"
               target="_blank"
+              rel="noopener noreferrer"
               aria-label="TikTok"
               title="Visit our TikTok"
             >
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+                focusable="false"
+              >
                 <path
                   d="M16 8.04a5.54 5.54 0 0 1-2.18-.44V13a4.96 4.96 0 1 1-4.96-4.96 4.8 4.8 0 0 1 .74.06v2.9a2.09 2.09 0 1 0 1.46 2V2h2.76a5.54 5.54 0 0 0 5.5 5.03v2.78a8.23 8.23 0 0 1-3.32-.77z"
                 />
@@ -1164,7 +946,7 @@
       <div class="col right-side">
         <div class="stats-holder">
           <div class="stats-box">
-            <div class="stat-number">36</div>
+            <div class="stat-number" id="years" data-target="36">0</div>
             <div class="stat-divider"></div>
             <div class="stat-text">
               <p><strong>Years Of Experience</strong></p>
@@ -1173,7 +955,8 @@
           </div>
         </div>
 
-        <div class="timeline">
+        <!-- Timeline (unchanged visuals) -->
+        <div class="timeline" id="timeline">
           <div class="timeline-grid">
             <div class="tl-item">
               <span class="dot"></span>
@@ -1208,5 +991,63 @@
         </div>
       </div>
     </div>
+    <!-- /grid-quarters -->
+
+    <script>
+      // Respect reduced motion
+      const reduceMotion = window.matchMedia(
+        "(prefers-reduced-motion: reduce)"
+      ).matches;
+
+      // 1) Reveal map image on scroll (subtle, no visual change to design)
+      const mapImg = document.querySelector(".map-img");
+      if (mapImg && !reduceMotion) {
+        const ioMap = new IntersectionObserver(
+          (entries, obs) => {
+            entries.forEach((e) => {
+              if (e.isIntersecting) {
+                mapImg.classList.add("revealed");
+                obs.unobserve(e.target);
+              }
+            });
+          },
+          { threshold: 0.15 }
+        );
+        ioMap.observe(mapImg);
+      } else if (mapImg) {
+        mapImg.classList.add("revealed");
+      }
+
+      // 2) Count-up for "36" (stats) only
+      const yearsEl = document.getElementById("years");
+      function countUp(el) {
+        const target = parseInt(el.getAttribute("data-target"), 10) || 0;
+        const duration = 1200; // ms
+        const start = performance.now();
+        function tick(now) {
+          const p = Math.min(1, (now - start) / duration);
+          const val = Math.floor(target * p);
+          el.textContent = val.toString();
+          if (p < 1) requestAnimationFrame(tick);
+        }
+        requestAnimationFrame(tick);
+      }
+      if (yearsEl) {
+        const ioNum = new IntersectionObserver(
+          (entries, obs) => {
+            entries.forEach((e) => {
+              if (e.isIntersecting) {
+                yearsEl.classList.add("visible");
+                if (!reduceMotion) countUp(yearsEl);
+                else yearsEl.textContent = yearsEl.getAttribute("data-target");
+                obs.unobserve(e.target);
+              }
+            });
+          },
+          { threshold: 0.35 }
+        );
+        ioNum.observe(yearsEl);
+      }
+    </script>
   </body>
 </html>
